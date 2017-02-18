@@ -1,0 +1,35 @@
+<?php 
+    if (isset($_GET['q']) && isset($_GET['engine'])) {
+      if ($_GET["engine"]=='gg') {
+        header("Location: http://www.google.com/search?q=".$_GET["q"]);
+      } else if($_GET["engine"]=="bing"){
+        header("Location: http://www.bing.com/search?q=".$_GET["q"]);
+      } else {
+        echo "<a href='http://www.baidu.com'>百度一下</a>";
+      }
+    }
+ ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Demo</title>
+</head>
+<body>
+  <div align="center">
+      <b>Wlecome to All Blue.</b>
+      <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="get">
+         <?php if (isset($_GET['q']) && !isset($_GET['engine'])) { ?>
+           <input type="text" name="q" value="<?php echo $_GET['q']; ?>"><br />
+         <?php } else { ?>
+          <input type="text" name="q"><br />
+         <?php } ?>
+         <?php if (isset($_GET['q']) && !isset($_GET['engine'])) { ?>
+           <font>Choose an engine.</font><br />
+         <?php } ?>
+         <input type="radio" name="engine" value="gg">Goole <input type="radio" name="engine" value="bing">Bing<br />         
+         <input type="submit" value="search">
+      </form>
+  </div>
+</body>
+</html>
