@@ -1,0 +1,36 @@
+简单数数据库连接，index.php用于表单填写，save.php用于存入数据库
+index.php
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+ 	<meta charset="UTF-8">
+ 	<title>Demo</title>
+ </head>
+ <body>
+ 	<div align="center">
+ 		<form action="save.php" method="post">
+ 			user: <input type="text" name="user">
+ 			<br />
+			gender: <input type="radio" name="gender" value="male">male <input type="radio" name="gender" value="female">female
+			<br />
+			email: <input type="email" name="email">
+			<br />
+			<input type="submit" value="submit">
+ 		</form>
+ 	</div>
+ </body>
+ </html>
+ 
+ save.php
+ <?php 	
+	$name=$_POST['user'];
+	$gender=$_POST['gender'];
+	$email=$_POST['email'];
+  //如果第四个参数，即数据库名称未填写，还需使用mysqli_select_db($dbc,"dbname");语句来选中数据库
+  $dbc=mysqli_connect("localhost","mldson","6887289","school") or die("wrong connect");
+	$query="INSERT INTO student(name,gender,email) VALUES ('$name','$gender','$email')";
+	$result=mysqli_query($dbc,$query) or die("wrong insert");
+	mysqli_close($dbc);
+
+	header("Location: demo.php");
+ ?>
