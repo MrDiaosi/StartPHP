@@ -34,3 +34,17 @@ index.php
 
 	header("Location: demo.php");
  ?>
+
+delete.php
+
+ <?php 
+	$dbc=mysqli_connect('localhost','mldson','6887289','school');
+	$query="delete from student where name='taoliu'";
+	//上面taoliu可用用户输入的变量替代
+	$result=mysqli_query($dbc,$query) or die("删除失败");
+	mysqli_close($dbc);
+	echo "删除成功";
+ ?>
+ 
+ 
+ 
