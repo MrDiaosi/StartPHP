@@ -1,0 +1,151 @@
+index.php
+
+<?php 
+	if (isset($_POST['submit'])) {
+		$dbc=mysqli_connect('localhost','fdaon','68709','school') or die("wrong connect");
+		$query="select*from student";
+		$result=mysqli_query($dbc,$query) or die("wrong query");
+		while ($row=mysqli_fetch_array($result)) {
+			echo $row['name'].' '.$row['gender'];
+			echo '<br />';
+			echo $row['email'].'<br />';
+			echo '<br />';
+		}
+		mysqli_close($dbc);
+	}
+ ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>HOME</title>
+</head>
+<body>
+	<a href="add.php">add</a>
+	<br />
+	<a href="search.php">search</a>
+	<br />
+	<a href="delete.php">delete</a>
+	<br />
+	<a href="index.php">index</a>
+	<br />
+	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+		<input type="submit" name="submit" value="search">
+	</form>
+</body>
+</html>
+
+add.php
+
+<?php 
+	if (isset($_POST['name'])) {
+		$name=$_POST['name'];
+		$gender=$_POST['gender'];
+		$email=$_POST['email'];
+		$dbc=mysqli_connect('localhost','fdaon','68709','school') or die("wrong connect");
+		$query="insert into student(name,gender,email) values ('$name','$gender','$email')";
+		$result=mysqli_query($dbc,$query) or die("wrong query");
+		mysqli_close($dbc);
+		echo "good".'<br />';
+	}
+ ?>
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+ 	<meta charset="UTF-8">
+ 	<title>search</title>
+ </head>
+ <body>
+ 	<a href="add.php">add</a>
+	<br />
+	<a href="search.php">search</a>
+	<br />
+	<a href="delete.php">delete</a>
+	<br />
+	<a href="index.php">index</a>
+	<br />
+ 	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+ 		name: <input type="text" name="name">
+ 		<br />
+ 		gender: <input type="text" name="gender">
+ 		<br />
+ 		email: <input type="email" name="email">
+ 		<br />
+ 		<input type="submit" value="search">
+ 	</form>
+ </body>
+ </html>
+ 
+ delete.php
+ 
+ <?php 
+	if (isset($_POST['name'])) {
+		$name=$_POST['name'];
+		$dbc=mysqli_connect('localhost','fdaon','68709','school') or die("wrong connect");
+		$query="delete from student where name='$name'";
+		$result=mysqli_query($dbc,$query) or die("wrong query");
+		mysqli_close($dbc);
+		echo "good".'<br />';
+	}
+ ?>
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+ 	<meta charset="UTF-8">
+ 	<title>search</title>
+ </head>
+ <body>
+ 	<a href="add.php">add</a>
+	<br />
+	<a href="search.php">search</a>
+	<br />
+	<a href="delete.php">delete</a>
+	<br />
+	<a href="index.php">index</a>
+	<br />
+ 	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+ 		name: <input type="text" name="name">
+ 		<br />
+ 		<input type="submit" value="search">
+ 	</form>
+ </body>
+ </html>
+ 
+ search.php
+ 
+ <?php 
+	if (isset($_POST['name'])) {
+		$name=$_POST['name'];
+		$dbc=mysqli_connect('localhost','fdaon','68709','school') or die("wrong connect");
+		$query="select*from student where name='$name'";
+		$result=mysqli_query($dbc,$query) or die("wrong query");
+		$row=mysqli_fetch_array($result);
+		echo $row['name'].' '.$row['gender'];
+		echo '<br />';
+		echo $row['email'].'<br />';
+		echo '<br />';
+		mysqli_close($dbc);
+	}
+ ?>
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+ 	<meta charset="UTF-8">
+ 	<title>search</title>
+ </head>
+ <body>
+ 	<a href="add.php">add</a>
+	<br />
+	<a href="search.php">search</a>
+	<br />
+	<a href="delete.php">delete</a>
+	<br />
+	<a href="index.php">index</a>
+	<br />
+ 	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+ 		name: <input type="text" name="name">
+ 		<br />
+ 		<input type="submit" value="search">
+ 	</form>
+ </body>
+ </html>
