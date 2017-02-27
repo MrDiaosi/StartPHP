@@ -27,7 +27,7 @@ index.php
 	$gender=$_POST['gender'];
 	$email=$_POST['email'];
   //如果第四个参数，即数据库名称未填写，还需使用mysqli_select_db($dbc,"dbname");语句来选中数据库
-  $dbc=mysqli_connect("localhost","mldson","6887289","school") or die("wrong connect");
+  $dbc=mysqli_connect('localhost','fdaon','68709','school') or die("wrong connect");
 	$query="INSERT INTO student(name,gender,email) VALUES ('$name','$gender','$email')";
 	$result=mysqli_query($dbc,$query) or die("wrong insert");
 	mysqli_close($dbc);
@@ -38,7 +38,7 @@ index.php
 delete.php
 
  <?php 
-	$dbc=mysqli_connect('localhost','mldson','6887289','school');
+ $dbc=mysqli_connect('localhost','fdaon','68709','school') or die("wrong connect");
 	$query="delete from student where name='taoliu'";
 	//上面taoliu可用用户输入的变量替代
 	$result=mysqli_query($dbc,$query) or die("删除失败");
