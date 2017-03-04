@@ -1,0 +1,78 @@
+save.php
+
+<?php 
+	define("DADIAO", "goudan/");
+	if (isset($_POST['submit'])) {
+		$name=$_POST['name'];
+		$score=$_POST['score'];
+		$poname=DADIAO.time().$_FILES['photo']['name'];
+		$potmpname=$_FILES['photo']['tmp_name'];
+		move_uploaded_file($potmpname, $poname);
+		$dbc=mysqli_connect('lfdat','fdan','23f9','school') or die('wrong connect');
+		$query="insert into guitar(date,name,score,screenshot)values(now(),'$name','$score','$poname')";
+		$result=mysqli_query($dbc,$query) or die("wrong query");
+		mysqli_close($dbc);
+		echo "good".'<br />';
+		echo "<a href='jiba.php'>jiba</a>".'<br />';
+		echo "<a href='demo.php'>more</a>";
+		exit();
+	}
+ ?>
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+ 	<meta charset="UTF-8">
+ 	<title>Demo</title>
+ </head>
+ <body>
+ 	<div align="center">
+ 		<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
+ 			name: <input type="text" name="name" value="<?php  if (isset($_POST['name'])) {
+ 				echo $_POST['name'];
+ 			}  ?>">
+ 			<br />
+ 			score: <input type="text" name="score" value="<?php  if (isset($_POST['score'])) {
+ 				echo $_POST['score'];
+ 			}  ?>">
+ 			<br />
+ 			photo: <input type="file" name="photo">
+ 			<br />
+ 			<input type="submit" name="submit" value="pp">
+ 		</form>
+ 	</div>
+ </body>
+ </html>
+ 
+ search.php
+ 
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>H</title>
+</head>
+<body>
+	<?php 
+	$dbc=mysqli_connect('dfadt','mfdan','632','school') or die('wrong connect');
+	$query="select*from guitar";
+	$result=mysqli_query($dbc,$query) or die("wrong query");  ?>
+		<table>
+			<th>
+				<td>No</td>
+				<td>Name</td>
+				<td>Score</td>
+				<td>Photo</td>
+			</th>
+<?php	while ($row=mysqli_fetch_array($result)) {
+			echo '<tr>';
+			echo '<td>'.$row['id'].'</td>'; 
+			echo '<td>'.$row['name'].'</td>';
+			echo '<td>'.$row['score'].'</td>'; ?>
+			<td><img src="<?php echo $row['screenshot']; ?>" /></td>
+		<?php	echo '</tr>';
+	}  ?>
+	</table>
+<?php	mysqli_close($dbc);
+ ?>
+</body>
+</html>
