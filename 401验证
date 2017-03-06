@@ -1,0 +1,29 @@
+authorize.php
+
+<?php 
+	define("USER", 'taoliu');
+	define('PASS', '110');
+	if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW']) ||
+		$_SERVER['PHP_AUTH_USER']!=USER || $_SERVER['PHP_AUTH_PW']!=PASS) {
+		header('HTTP/ 1.1 401 Unauthorized');
+		header('WWW-Authenticate: Basic realm="dajiba"');
+		exit('Sorry');
+	}
+ ?>
+ 
+ index.php
+ 
+ <?php 
+	require_once('authorize.php');
+ ?>
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+ 	<meta charset="UTF-8">
+ 	<title>Document</title>
+ </head>
+ <body>
+ 	<b>Succeed!</b>
+ </body>
+ </html>
+ 
