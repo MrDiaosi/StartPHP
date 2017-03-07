@@ -1,0 +1,26 @@
+login.php
+
+<?php
+	if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])) {
+		header('HTPP/ 1.1 401 Unathorizd');
+		header('WWW-Authenticate: Basic realm="Guitar"');
+		exit('sorry, you should input your username and password, if not have, register'."<a href='index.php'>login</a>");
+	}
+	$dbc=mysqli_connect('**','**','**','**') or die('wrong connect');
+	$username=$_SERVER['PHP_AUTH_USER'];
+	$password=$_SERVER['PHP_AUTH_PW'];
+	$query="select id,username,password from mismatch where username='$username' AND password=SHA($password)";
+	$result=mysqli_query($dbc,$query);
+	
+	if (@mysqli_num_rows($result)==1) {
+		$row=mysqli_fetch_array($result);
+		$user_id=$row['id'];
+		$username=$row['username'];
+	} else {
+		header('HTPP/ 1.1 401 Unathorizd');
+		header('WWW-Authenticate: Basic realm="Guitar"');
+		exit('sorry,a valid username and password is needed. If do not have, '."<a href='index.php'>login</a>");
+	}
+    mysqli_close($dbc);
+    echo 'You logged in as '.$username;
+ ?>
